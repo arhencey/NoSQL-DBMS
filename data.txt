@@ -1,7 +1,0 @@
-DocID:300 ID:1000 Width:100 Price:1500 Height:5
-Width:10 DocID:10 ID:102 Price:100
-DocID:11 Width:31 ExpireYear:2020 ID:101 Price:10
-ID:103 DocID:13 Width:100 Height:10 Price:150
-DocID:14 ID:105 Width:10 Price:10
-ID:106 DocID:200 Price:30 Width:100
-ID:107 DocID:20
