@@ -9,7 +9,7 @@ DocID:555 Dept:5 Age:20
 Dept:10 Manager:555 DocID:777 Age:30  
 DocID:666 Dept:7 Age:20  
 Age:25 Manager:555 DocID:222  
-DocID:333 Dept:7 Age:21  
+DocID:333 Dept:7 Age:21
 
 The data is read from a file called data.txt.
 
@@ -40,18 +40,18 @@ Example queries and their results:
 
 Output:
 
-DocID:555 Age:20                 
-DocID:777 Age:30
-DocID:666 Age:20
-DocID:222 Age:25
+DocID:555 Age:20  
+DocID:777 Age:30  
+DocID:666 Age:20  
+DocID:222 Age:25  
 DocID:333 Age:21
 
 
 
 >final.query([Manager=555],[DocID,Dept])
 
-Output: 
-DocID:777 Dept:10   
+Output:  
+DocID:777 Dept:10  
 DocID:222 Dept:NA
 
 
