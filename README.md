@@ -38,8 +38,7 @@ Example queries and their results:
 
 >final.query([],[DocID,Age])
 
-Output:
-
+Output:  
 DocID:555 Age:20  
 DocID:777 Age:30  
 DocID:666 Age:20  
@@ -57,8 +56,7 @@ DocID:222 Dept:NA
 
 >final.query([Age<30,Manager=555], [])
 
-Output:
-
+Output:  
 Age:25 Manager:555
 
 Since this is a NoSQL DB, there should not be an error generated if there is no match for the name of a collection or a field. In other words, if there is no such collection, output nothing.  If no documents satisfy the specified condition, output nothing. If there are conditions specified, a document must satisfy all conditions to be in the output. If "query" or any of the operations below is misspelled, print an error “query semantic error!”.
@@ -82,7 +80,7 @@ If no such field, return nothing.  Obviously, do not include a document in the c
 Example:
 >final.count([Manager],[0])
 
-Output:
+Output:  
 count_Manager:2
 
  
@@ -90,7 +88,7 @@ count_Manager:2
 Example:
 >final.count([Manager],[1])
 
-Output:
+Output:  
 count_Manager:1
 
 Operation 3-
@@ -102,8 +100,7 @@ Example:
 
 >final.insert(Age:23 Manager:434 Salary:10000)
 
-Output:
-
+Output:  
 DocID:778 Age:23 Manager:434 Salary:10000
 
 The document will be inserted into the database and will be available for subsequent queries and functions.
@@ -114,8 +111,7 @@ Another Example:
 
 >final.insert(DocID:222 Age:30)
 
-Output:
-
+Output:  
 Duplicate DocID error!
 
 
