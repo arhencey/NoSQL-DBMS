@@ -80,7 +80,7 @@ void processQueries()
 	while (checkQueryStartsWithFinal(fp) != -1)
 	{
 		op = getOperation(fp);
-		if (op == -1) printf("query semantic error!\n");
+		if (op == -1) printf("Query semantic error!\n\n");
 		else if (op == 1)
 		{
 			doQuery(fp);
@@ -93,7 +93,6 @@ void processQueries()
 		}
 		else
 		{
-			//printf("doing insert\n");
 			doInsert(fp);
 			printf("\n");
 		}
@@ -888,6 +887,7 @@ void doInsert(FILE *fp)
 	printf("\n");
 }
 
+// Returns 1 if DocID already exists, 0 if it does not
 int doesDocIDalreadyExist(int docID)
 {
 	FILE *datafp = fopen("data.txt","r");
@@ -906,11 +906,28 @@ int doesDocIDalreadyExist(int docID)
 				fclose(datafp);
 				return 1;
 			}
+			else
+			{
+				p = strtok(NULL, ":");
+				next = fgetc(datafp);
+				if (next != EOF)
+				{
+					next = getc(datafp);
+					if (next == EOF) break;
+					else next = ungetc(next,datafp);
+				}
+			}
 		}
 		else
 		{
 			p = strtok(NULL, ":");
 			next = fgetc(datafp);
+			if (next != EOF)
+			{
+				next = getc(datafp);
+				if (next == EOF) break;
+				else next = ungetc(next,datafp);
+			}
 		}
 	}
 	fclose(datafp);
