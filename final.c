@@ -23,6 +23,7 @@ void doCount(FILE *fp);
 void doInsert(FILE *fp);
 int doesDocIDalreadyExist(int docID);
 int getOperation(FILE *fp);
+void openFileError(char *fileName);
 
 int maxDocID = 0;
 
@@ -54,6 +55,11 @@ int getNumRows()
 void getMaxDocID()
 {
 	FILE *fp = fopen("data.txt","r");
+	if (!fp)
+	{
+		openFileError("data.txt");
+		return;
+	}
 	char next = '\0';
 	char *p = "";
 	char rawString[128] = "";
@@ -75,6 +81,11 @@ void processQueries()
 {
 	getMaxDocID();
 	FILE *fp = fopen("queries.txt","r");
+	if (!fp)
+	{
+		openFileError("queries.txt");
+		return;
+	}
 	int op = 0;
 
 	while (checkQueryStartsWithFinal(fp) != -1)
@@ -231,15 +242,6 @@ void doQuery(FILE *fp)
 		numConditions++;
 	}
 
-	/*
-	//Print query conditions
-	printf("\nQuery conditions: %d\n",numConditions);
-	for (int i = 0; i < numConditions; ++i)
-	{
-		printf("%s, %d, %d\n",queryField[i],queryOperation[i],queryValue[i]);
-	}
-	*/
-
 	//Get fields to display
 	char showFields[256][128];
 	memset(&showFields[0], 0, sizeof(showFields));
@@ -266,17 +268,13 @@ void doQuery(FILE *fp)
 	char rawString[128];
 	memset(&rawString[0], 0, sizeof(rawString));
 
-	/*
-	//Print fields to display
-	printf("Fields to display: %d\n",numShowFields);
-	for (int i = 0; i < numShowFields; ++i)
-	{
-		printf("%s\n",showFields[i]);
-	}
-	*/
-
 	//Get rows to display
 	FILE *datafp = fopen("data.txt","r");
+	if (!fp)
+	{
+		openFileError("data.txt");
+		return;
+	}
 	memset(&rawString[0], 0, sizeof(rawString));
 	p = "a";
 	int curRow = 1;
@@ -535,17 +533,6 @@ void doQuery(FILE *fp)
 			}
 		}
 	}
-
-	/*
-	//Print rows to display
-	printf("numRowsToDisplay: %d\n",numRowsToDisplay);
-	printf("Row numbers that meet conditions: %d\n",numRowsToDisplay);
-	for (int i = 0; i < numRowsToDisplay; ++i)
-	{
-		printf("%d\n",rowsToDisplay[i]);
-	}
-	printf("\n");
-	*/
 
 	//Perform query
 	if (numConditions == 0)
@@ -891,6 +878,11 @@ void doInsert(FILE *fp)
 int doesDocIDalreadyExist(int docID)
 {
 	FILE *datafp = fopen("data.txt","r");
+	if (!datafp)
+	{
+		openFileError("queries.txt");
+		return 0;
+	}
 	char next = '\0';
 	char *p;
 	char rawString[128];
@@ -932,4 +924,10 @@ int doesDocIDalreadyExist(int docID)
 	}
 	fclose(datafp);
 	return 0;
+}
+
+void openFileError(char *fileName)
+{
+	printf("Could not open file \"%s\"\n", fileName);
+	printf("Make sure this file is located in the same directory as the executable.\n");
 }
